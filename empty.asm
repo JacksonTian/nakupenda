@@ -2,11 +2,11 @@
 ; A simple boot sector program that loops forever.
 ;
 
-label.loop:
+loop:
               ; Define a label, "loop", that will allow
               ; us to jump back to it, forever.
 
-  jmp label.loop
+  jmp loop
               ; Use a simple CPU instruction that jumps
               ; to a new memory address to continue execution.
               ; In our case, jump to the address of the current
