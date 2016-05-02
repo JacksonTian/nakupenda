@@ -23,7 +23,7 @@ print_hex:
   mov [HEX_OUT+5], al
 
   mov bx, HEX_OUT       ; print the string poijnted to
-  call print_string     ; by BX
+  call print     ; by BX
   popa
   ret
 

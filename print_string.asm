@@ -1,23 +1,35 @@
-;
-; A print function.
-;
-; The address of a null-terminated string should be placed in BX
-;
-print_string:
-  pusha                 ; Push all register values to the stack
+print:
+    pusha
 
-move:
-  mov al, [bx]          ; Move contents of BX into AL
+; keep this in mind:
+; while (string[i] != 0) { print string[i]; i++ }
 
-  cmp al, 0             ; Found a null terminator?
-  je the_end            ; If so, exit
+; the comparison for string end (null byte)
+start:
+    mov al, [bx] ; 'bx' is the base address for the string
+    cmp al, 0
+    je done
 
-  mov ah, 0x0e          ; int=10/ah=0x0e -> BIOS tele-type output
-  int 0x10              ; print the character in al
+    ; the part where we print with the BIOS help
+    mov ah, 0x0e
+    int 0x10 ; 'al' already contains the char
 
-  inc bx                ; increment BX for the next character
-  jmp move              ; and go back to print it
+    ; increment pointer and do next loop
+    add bx, 1
+    jmp start
 
-the_end:
-  popa                  ; Restore original reguster values
+done:
+    popa
+    ret
+
+print_nl:
+  pusha
+
+  mov ah, 0x0e
+  mov al, 0x0a ; newline char
+  int 0x10
+  mov al, 0x0d ; carriage return
+  int 0x10
+
+  popa
   ret
