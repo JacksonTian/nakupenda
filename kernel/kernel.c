@@ -1,6 +1,6 @@
 #include "../drivers/ports.h"
 
-void main() {
+void kernel_main() {
     /* Screen cursor position: ask VGA control register (0x3d4) for bytes
      * 14 = high byte of cursor and 15 = low byte of cursor. */
     port_byte_out(0x3d4, 14); /* Requesting byte 14: high byte of cursor pos */
