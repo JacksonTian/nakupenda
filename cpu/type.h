@@ -1,5 +1,5 @@
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef TYPE_H
+#define TYPE_H
 
 /* Instead of using 'chars' to allocate non-character bytes,
  * we will use these new type with no semantic meaning */

@@ -1,4 +1,5 @@
 #include "string.h"
+#include "../cpu/type.h"
 
 /**
  * K&R implementation
@@ -15,6 +16,26 @@ void int_to_ascii(int n, char str[]) {
     str[i] = '\0';
 
     reverse(str);
+}
+
+void hex_to_ascii(int n, char str[]) {
+    append(str, '0');
+    append(str, 'x');
+    char zeros = 0;
+
+    s32 tmp;
+    int i;
+    for (i = 28; i > 0; i -= 4) {
+        tmp = (n >> i) & 0xF;
+        if (tmp == 0 && zeros == 0) continue;
+        zeros = 1;
+        if (tmp > 0xA) append(str, tmp - 0xA + 'a');
+        else append(str, tmp + '0');
+    }
+
+    tmp = n & 0xF;
+    if (tmp >= 0xA) append(str, tmp - 0xA + 'a');
+    else append(str, tmp + '0');
 }
 
 /* K&R */
