@@ -1,11 +1,22 @@
+#include "../cpu/isr.h"
 #include "../drivers/screen.h"
+#include "kernel.h"
+#include "../libc/string.h"
 
 void kernel_main() {
-    clear_screen();
-    kprint_at("ABC", 0, 0);
-    kprint_at("B", 1, 7);
-    kprint_at("This ", 75, 10);
-    kprint_at("There is a line\nbreak", 0, 20);
-    kprint("There is a line\nbreak");
-    kprint_at("What happens when we run out of space?", 45, 24);
+  isr_install();
+  irq_install();
+
+  kprint("Type something, it will go through the kernel\n"
+      "Type END to halt the CPU\n> ");
+}
+
+void user_input(char *input) {
+    if (strcmp(input, "END") == 0) {
+        kprint("Stopping the CPU. Bye!\n");
+        asm volatile("hlt");
+    }
+    kprint("You said: ");
+    kprint(input);
+    kprint("\n> ");
 }
