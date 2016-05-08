@@ -10,12 +10,12 @@ HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
 # Nice syntax for file extension replacement
 OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
-CFLAGS = -g
+CFLAGS = -ffreestanding
 
 all: run
 
 %.o: %.c ${HEADERS}
-	${GCC} -ffreestanding -c $< -o $@
+	${GCC} ${CFLAGS} -c $< -o $@
 
 %.o: %.asm
 	nasm $< -f elf -o $@
