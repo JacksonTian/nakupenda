@@ -12,10 +12,7 @@ OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
 CFLAGS = -g
 
-debug:
-	echo ${C_SOURCES}
-	echo ${HEADERS}
-	echo ${OBJ}
+all: run
 
 %.o: %.c ${HEADERS}
 	${GCC} -ffreestanding -c $< -o $@
